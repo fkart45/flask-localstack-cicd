@@ -4,7 +4,7 @@ def lambda_handler(event, context):
     try:
         s3 = boto3.client(
         's3', 
-        endpoint_url='http://host.docker.internal:4566',
+        endpoint_url='http://localhost:4566', #Use this for local testing 'http://host.docker.internal:4566'
         aws_access_key_id='test',
         aws_secret_access_key='test',
         )
