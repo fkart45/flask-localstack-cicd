@@ -10,7 +10,8 @@ def hello():
         'lambda', #Part 2
         endpoint_url='http://localhost:4566', #Part 2
         aws_access_key_id='test', #Part 2
-        aws_secret_access_key='test' #Part 2
+        aws_secret_access_key='test', #Part 2
+        region_name='us-east-1'
     )
     response = lambda_client.invoke(
         FunctionName='my_lambda_function', #Part 2
