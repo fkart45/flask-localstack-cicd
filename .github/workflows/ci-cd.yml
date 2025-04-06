@@ -29,8 +29,10 @@ jobs:
     - name: Start LocalStack
       run: |
         pip install localstack
-        docker pull localstack/localstack
-        docker run -d -p 4566:4566 -e SERVICES=s3,lambda -e LAMBDA_EXECUTOR=local localstack/localstack
+        docker pull localstack/localstack:1.4.0
+        docker run -d -p 4566:4566 -e SERVICES=s3,lambda -e LAMBDA_EXECUTOR=local -e DEBUG=1 localstack/localstack:1.4.0
+        sleep 10
+        docker ps
 
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v2
@@ -42,6 +44,10 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
+
+    - name: Debug LocalStack Logs
+      run: |
+        docker logs $(docker ps -q --filter "ancestor=localstack/localstack:1.1.0") || echo "No logs available"
 
     - name: Wait for LocalStack
       run: sleep 10  # Give LocalStack time to start
