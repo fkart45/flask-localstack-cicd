@@ -30,7 +30,7 @@ jobs:
       run: |
         pip install localstack
         docker pull localstack/localstack
-        docker run -d -p 4566:4566 -e SERVICES=s3,lambda localstack/localstack
+        docker run -d -p 4566:4566 -e SERVICES=s3,lambda -e LAMBDA_EXECUTOR=local localstack/localstack
 
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v2
