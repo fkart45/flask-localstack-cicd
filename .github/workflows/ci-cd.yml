@@ -53,8 +53,11 @@ jobs:
       run: sleep 10  # Give LocalStack time to start
 
     - name: Test Lambda Deployment
+      env:
+        AWS_ACCESS_KEY_ID: test
+        AWS_SECRET_ACCESS_KEY: test
       run: |
-        aws --endpoint-url=http://localhost:4566 --region=us-east-1 --aws-access-key-id=test --aws-secret-access-key=test lambda invoke --function-name my_lambda_function out.json
+        aws --endpoint-url=http://localhost:4566 --region=us-east-1 lambda invoke --function-name my_lambda_function out.json
         cat out.json | grep "File uploaded to S3 successfully"
 
     - name: Deploy and Test Flask App
